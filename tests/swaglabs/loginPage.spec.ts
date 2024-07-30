@@ -3,14 +3,12 @@ import { LoginPage } from '../../src/swaglabs/pages/loginPage'
 
 test.describe('Login Page', () => {
     test('should be able to open page', async({site}) => {
-        const loginPage: LoginPage = site.loginPage()
-        await loginPage.goTo()
+        const loginPage: LoginPage = await site.loginPage().goTo()
         await loginPage.assertIsOpen()
     })
 
     test('should be able see basic controls and set values', async({site}) => {
-        const loginPage: LoginPage = site.loginPage()
-        await loginPage.goTo()
+        const loginPage: LoginPage = await site.loginPage().goTo()
         await loginPage.textboxUsername.setText('standard_user')
         await loginPage.textboxPassword.setText('secret_sauce')
         await loginPage.buttonLogin.assertIsEnabled()
@@ -18,8 +16,7 @@ test.describe('Login Page', () => {
     })
 
     test('should be able to login with valid credentials', async({site}) => {
-        const loginPage: LoginPage = site.loginPage()
-        await loginPage.signIn('standard_user', 'secret_sauce')
+        await site.loginPage().signIn('standard_user', 'secret_sauce')
         site.productsPage().assertIsOpen()
     })
 
@@ -30,8 +27,7 @@ test.describe('Login Page', () => {
 
     invalidCredentials.forEach(({username, password, errorMessage}) => {
         test(`should not be able to login with invalid credentials: ${username} / ${password}`, async({site}) => {
-            const loginPage: LoginPage = site.loginPage()
-            await loginPage.signIn(username, password)
+            const loginPage: LoginPage = await site.loginPage().signIn(username, password)
             loginPage.labelError.assertTextContains(errorMessage)
         })
     })
