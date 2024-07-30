@@ -1,10 +1,11 @@
-import { Locator } from "@playwright/test";
-import { ListControl } from "../../core/controls/listControl";
-import { RepeatingControl } from "../../core/controls/repeatingControl";
-import { Label } from "../../core/controls/label";
-import { Button } from "../../core/controls/button";
-import { LocatorMethod } from "../../core/enums/locatorMethod";
-import { Product } from "../domain/product";
+import { Locator } from "@playwright/test"
+import { ListControl } from "../../core/controls/listControl"
+import { RepeatingControl } from "../../core/controls/repeatingControl"
+import { Label } from "../../core/controls/label"
+import { Button } from "../../core/controls/button"
+import { LocatorMethod } from "../../core/enums/locatorMethod"
+import { Product } from "../domain/product"
+import { ProductsHelper } from "../general/productsHelper"
 
 export class ListProducts extends ListControl<ListProducts> {
     private labelPriceControl: RepeatingControl<Label>
@@ -30,7 +31,7 @@ export class ListProducts extends ListControl<ListProducts> {
 
         this.labelNameControl = new RepeatingControl<Label>(
             locator, 
-            "//div[@class='inventory_item_name']", 
+            "//div[@class='inventory_item_name ']", 
             LocatorMethod.XPath, 
             this.rowLocatorPattern, 
             this.hasHeader, 
@@ -89,7 +90,8 @@ export class ListProducts extends ListControl<ListProducts> {
     async getCurrentProduct(): Promise<Product> {
         const name = await this.labelName().getText()
         const price = await this.labelPrice().getText()
+        const priceNumber = ProductsHelper.convertPriceToNumber(price)
         const description = await this.labelDescription().getText()
-        return new Product(name, description, parseFloat(price))
+        return new Product(name, description, priceNumber)
     }
 }

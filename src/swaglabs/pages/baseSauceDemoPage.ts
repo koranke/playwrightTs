@@ -1,4 +1,3 @@
-import { Page } from "@playwright/test"
 import { BasePage } from "../../core/basePage"
 import { SauceDemoSite } from "./SauceDemoSite"
 
@@ -10,9 +9,9 @@ export class BaseSauceDemoPage<T> extends BasePage<T> {
         this.site = site
     }
 
-    public async open() {
+    public async open(): Promise<T> {
         await this.loginIfNeeded()
-        await this.goTo()
+        return await this.goTo()
     }
 
     protected async loginIfNeeded() {

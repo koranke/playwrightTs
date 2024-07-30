@@ -1,6 +1,6 @@
-import { Locator } from "@playwright/test";
-import { BaseControl } from "./baseControl";
-import { TextControl } from "./textControl";
+import { Locator } from "@playwright/test"
+import { BaseControl } from "./baseControl"
+import { TextControl } from "./textControl"
 
 export class Label extends BaseControl implements TextControl {
 

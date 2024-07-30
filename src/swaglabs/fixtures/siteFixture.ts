@@ -1,5 +1,5 @@
 
-import { test as base } from '@playwright/test';
+import { test as base } from '@playwright/test'
 import { SauceDemoSite } from '../pages/SauceDemoSite'
 
 type SiteFixture = {
@@ -13,4 +13,4 @@ export const test = base.extend<SiteFixture>({
     }
 })
 
-export { expect } from '@playwright/test';
+export { expect } from '@playwright/test'

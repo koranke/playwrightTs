@@ -1,6 +1,5 @@
-import { Page } from "@playwright/test";
-import assert from "assert";
-import { get } from "http";
+import { Page } from "@playwright/test"
+import assert from "assert"
 
 export class BasePage<T> {
     page: Page
@@ -13,8 +12,9 @@ export class BasePage<T> {
         this.url = `${baseUrl}${path}`
     }
 
-    async goTo() {
+    async goTo(): Promise<T> {
         await this.page.goto(this.url)
+        return this as unknown as T
     }
 
     async getPageUrl(): Promise<string> {

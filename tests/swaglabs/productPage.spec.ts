@@ -1,6 +1,6 @@
-import { test, expect } from '../../src/swaglabs/fixtures/siteFixture'
-import { ProductsPage } from '../../src/swaglabs/pages/productsPage'
-import { ProductsHelper, SortingDirection } from '../../src/swaglabs/general/productsHelper'
+import { SortingDirection } from '../../src/core/enums/sortingDirection'
+import { test } from '../../src/swaglabs/fixtures/siteFixture'
+import { ProductsHelper } from '../../src/swaglabs/general/productsHelper'
 
 
 test.describe('Products Page', () => {

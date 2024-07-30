@@ -26,7 +26,6 @@ export class RepeatingControl<T> extends BaseControl {
         this.rowLocatorPattern = rowLocatorPattern
         this.hasHeader = hasHeader
         this.getControl = getControl
-    
     }
 
     get(row: number): T {
@@ -54,18 +53,17 @@ export class RepeatingControl<T> extends BaseControl {
         throw new Error("Support for custom controls is not yet implemented.")
     }
 
-
-    public async getIndex(targetText: string): Promise<number | null> {
-        const startingIndex = this.hasHeader ? 2 : 1;
-        const rowCount = await this.getRowCount();
-        for (let i = startingIndex; i < rowCount; i++) {
-            const textControl = await this.get(i) as TextControl;
-            const text = await textControl.getText();
+    public async getIndex(targetText: string): Promise<number> {
+        const startingIndex = this.hasHeader ? 2 : 1
+        const rowCount = await this.getRowCount()
+        for (let i = startingIndex; i <= rowCount; i++) {
+            const textControl = await this.get(i) as TextControl
+            const text = await textControl.getText()
             if (text.includes(targetText)) {
-                return i;
+                return i
             }
         }
-        return null;
+        throw new Error(`Could not find text "${targetText}" in any row of the repeating control.`)
     }
 
     private getAdjustedRow(row: number): number {

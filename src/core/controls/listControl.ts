@@ -1,7 +1,7 @@
-import { Locator } from "@playwright/test";
-import { BaseControl } from "./baseControl";
-import { Label } from "./label";
-import { RepeatingControl } from "./repeatingControl";
+import { expect, Locator } from "@playwright/test"
+import { BaseControl } from "./baseControl"
+import { Label } from "./label"
+import { RepeatingControl } from "./repeatingControl"
 
 export class ListControl<T> extends BaseControl {
     currentRow: number
@@ -19,9 +19,14 @@ export class ListControl<T> extends BaseControl {
         return this.hasHeader && this.headerUsesRowLocatorPattern ? row + 1 : row
     }
 
-    getRowCount(): number {
-        let rowCount: number = this.locator.locator(this.rowLocatorPattern).all.length
+    async getRowCount(): Promise<number> {
+        let rowCount: number = (await this.locator.locator(this.rowLocatorPattern).all()).length
         return this.hasHeader && this.headerUsesRowLocatorPattern ? rowCount - 1 : rowCount
+    }
+
+    async assertRowCount(expectedCount: number) {
+        let expectedRowCount = this.getAdjustedRow(expectedCount)
+        expect(await this.getRowCount()).toBe(expectedRowCount)
     }
 
     withRow(row: number): T {
