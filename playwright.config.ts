@@ -25,11 +25,17 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     headless: false,
+    // deviceScaleFactor: undefined,
+    // viewport: null,
     /* Base URL to use in actions like `await page.goto('/')`. */
     // baseURL: 'http://127.0.0.1:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    launchOptions: {
+      // slowMo: 1000,
+      // args: ['--start-maximized'],
+    },
   },
 
   /* Configure projects for major browsers */

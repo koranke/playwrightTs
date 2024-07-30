@@ -29,30 +29,29 @@ export class RepeatingControl<T> extends BaseControl {
     
     }
 
-    async get(row: number): Promise<T | null> {
+    get(row: number): T {
         if (this.getControl === undefined) {
-            return await this.getCustom(row)
+            return this.getCustom(row)
         }
 
         if (this.controlId === undefined) {
-            return await this.getControl(this.getRowLocator(row))
+            return this.getControl(this.getRowLocator(row))
         } else {
             switch (this.locatorMethod) {
                 case LocatorMethod.XPath:
-                    return await this.getControl(this.getRowLocator(row).locator(this.controlId))
+                    return this.getControl(this.getRowLocator(row).locator(this.controlId))
                 case LocatorMethod.Text:
-                    return await this.getControl(this.getRowLocator(row).getByText(this.controlId))
+                    return this.getControl(this.getRowLocator(row).getByText(this.controlId))
                 case LocatorMethod.Data_TestId:    
-                    return await this.getControl(this.getRowLocator(row).getByTestId(this.controlId))
+                    return this.getControl(this.getRowLocator(row).getByTestId(this.controlId))
                 default:
                     throw new Error(`Locator method ${this.locatorMethod} not implemented`)
             }
         }
     }
 
-    async getCustom(row: number): Promise<T | null> {
-        //need to implement
-        return null
+    getCustom(row: number): T {
+        throw new Error("Support for custom controls is not yet implemented.")
     }
 
 
@@ -75,7 +74,7 @@ export class RepeatingControl<T> extends BaseControl {
 
     private getRowLocator(row: number): Locator {
         row = this.getAdjustedRow(row)
-        return this.locator.locator(this.rowLocatorPattern.replace("{0}", row.toString()))
+        return this.locator.locator(`${this.rowLocatorPattern}[${row.toString()}]`)
     }
 
     private async getRowCount(): Promise<number> {

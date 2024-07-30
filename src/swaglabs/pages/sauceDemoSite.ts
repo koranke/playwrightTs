@@ -13,14 +13,14 @@ export class SauceDemoSite extends Site<SauceDemoSite> {
 
     loginPage(): LoginPage {
         if (!this._loginPage) {
-            this._loginPage = new LoginPage(this.page)
+            this._loginPage = new LoginPage(this)
         }
         return this._loginPage
     }
 
     productsPage(): ProductsPage {
         if (!this._productsPage) {
-            this._productsPage = new ProductsPage(this.page)
+            this._productsPage = new ProductsPage(this)
         }
         return this._productsPage
     }

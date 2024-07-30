@@ -1,18 +1,20 @@
-import { Page } from "@playwright/test"
-import { Button, TextBox } from "../../internal"
+import { Button, Label, TextBox } from "../../internal"
 import { BaseSauceDemoPage } from "./baseSauceDemoPage"
+import { SauceDemoSite } from "./SauceDemoSite"
 
 export class LoginPage extends BaseSauceDemoPage<LoginPage> {
     textboxUsername: TextBox
     textboxPassword: TextBox
+    labelError: Label
     buttonLogin: Button
 
-    constructor(page: Page) {
-        super("", page)
+    constructor(site: SauceDemoSite) {
+        super("", site)
 
-        this.textboxUsername = new TextBox(page.locator('#user-name'))
-        this.textboxPassword = new TextBox(page.locator('#password'))
-        this.buttonLogin = new Button(page.getByRole('button', { name: 'Login' }))
+        this.textboxUsername = new TextBox(this.page.locator('#user-name'))
+        this.textboxPassword = new TextBox(this.page.locator('#password'))
+        this.labelError = new Label(this.page.locator('css=[data-test="error"]'))
+        this.buttonLogin = new Button(this.page.getByRole('button', { name: 'Login' }))
     }
 
     async signIn(username: string, password: string): Promise<LoginPage> {
@@ -20,11 +22,12 @@ export class LoginPage extends BaseSauceDemoPage<LoginPage> {
         await this.textboxUsername.setText(username)
         await this.textboxPassword.setText(password)
         await this.buttonLogin.click()
+        this.site.isSignedIn = true
         return this
     }
     
     async signInWithDefaultCredentials(): Promise<LoginPage> {
-        return this.signIn('standard_user', 'secret_saue')
+        return await this.signIn('standard_user', 'secret_sauce')
     }
 
 }

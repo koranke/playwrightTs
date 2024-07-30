@@ -19,7 +19,7 @@ export class ListControl<T> extends BaseControl {
         return this.hasHeader && this.headerUsesRowLocatorPattern ? row + 1 : row
     }
 
-    private getRowCount(): number {
+    getRowCount(): number {
         let rowCount: number = this.locator.locator(this.rowLocatorPattern).all.length
         return this.hasHeader && this.headerUsesRowLocatorPattern ? rowCount - 1 : rowCount
     }

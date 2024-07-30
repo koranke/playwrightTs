@@ -11,6 +11,7 @@ export class BaseControl {
     constructor(locator?: Locator) {
         if (locator) {
             this.locator = locator
+            this.page = locator.page()
         }
     }
 
@@ -52,11 +53,7 @@ export class BaseControl {
 
     public async isVisible(): Promise<boolean> {
         try {
-            await this.locator.page().waitForFunction(
-                async (locator) => await locator.isVisible(),
-                this.locator,
-                { timeout: this.timeoutForVisibility * 1000, polling: 100 }
-            )
+            await this.locator.waitFor({state: 'visible', timeout: this.timeoutForVisibility * 1000})
             return true
         } catch (e) {
             return false
@@ -65,11 +62,7 @@ export class BaseControl {
 
     public async isNotVisible(): Promise<boolean> {
         try {
-            await this.locator.page().waitForFunction(
-                async (locator) => !(await locator.isVisible()),
-                this.locator,
-                { timeout: this.timeoutForVisibility * 1000, polling: 100 }
-            )
+            await this.locator.waitFor({state: 'hidden', timeout: this.timeoutForVisibility * 1000})
             return true
         } catch (e) {
             return false
@@ -91,6 +84,15 @@ export class BaseControl {
             actualText = await this.getActualText(this.locator)
         }
         expect(actualText).toBe(expectedText)
+    }
+
+    public async assertTextContains(expectedText: string): Promise<void> {
+        let actualText = await this.getActualText(this.locator)
+        if (actualText === null) {
+            await this.wait(1000)
+            actualText = await this.getActualText(this.locator)
+        }
+        expect(actualText).toContain(expectedText)
     }
 
     private async getActualText(locator: Locator): Promise<string | null> {

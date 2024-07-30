@@ -17,27 +17,9 @@ export class BasePage<T> {
         await this.page.goto(this.url)
     }
 
-    // goTo(): AwaitVoid {
-    //     this.page.goto(this.url)
-    // }
-
-    // goTo(): void {
-    //     this.page.goto(this.url)
-    //         .then(() => {
-    //             console.log('Navigation successful');
-    //         })
-    //         .catch((error) => {
-    //             console.error('Navigation failed', error);
-    //         });
-    // }
-
     async getPageUrl(): Promise<string> {
         return await this.page.url()
     }
-
-    // getPageUrl(): AwaitString {
-    //     return this.page.url()
-    // }
 
     async isOpen(): Promise<boolean> {
         let timeout: number = 100
@@ -54,22 +36,6 @@ export class BasePage<T> {
     async assertIsOpen() {
         assert.strictEqual(await this.isOpen(), true)
     }
-
-    // isOpen(): AwaitBoolean {
-    //     let timeout: number = 100
-    //     while (this.page.url() !== this.url) {
-    //         this.page.waitForTimeout(timeout).then(() => {})
-    //         timeout *= 2
-    //         if (timeout > 2400) {
-    //             break
-    //         }
-    //     }
-    //     return this.page.url() === this.url
-    // }
-
-    // async assertIsOpen() {
-    //     assert.strictEqual(await this.isOpen(), true)
-    // }
 
 }
 
