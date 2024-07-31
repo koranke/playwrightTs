@@ -13,21 +13,21 @@ export class SauceDemoSite extends Site<SauceDemoSite> {
         super(page, 'https://www.saucedemo.com/')
     }
 
-    loginPage(): LoginPage {
+    get loginPage(): LoginPage {
         if (!this._loginPage) {
             this._loginPage = new LoginPage(this)
         }
         return this._loginPage
     }
 
-    productsPage(): ProductsPage {
+    get productsPage(): ProductsPage {
         if (!this._productsPage) {
             this._productsPage = new ProductsPage(this)
         }
         return this._productsPage
     }
 
-    cartPage(): CartPage {
+    get cartPage(): CartPage {
         if (!this._cartPage) {
             this._cartPage = new CartPage(this)
         }

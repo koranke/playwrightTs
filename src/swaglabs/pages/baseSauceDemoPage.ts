@@ -1,5 +1,5 @@
 import { BasePage } from "../../core/basePage"
-import { SauceDemoSite } from "./SauceDemoSite"
+import { SauceDemoSite } from "./sauceDemoSite"
 
 export class BaseSauceDemoPage<T> extends BasePage<T> {
     protected site: SauceDemoSite
@@ -16,7 +16,7 @@ export class BaseSauceDemoPage<T> extends BasePage<T> {
 
     protected async loginIfNeeded() {
         if (!this.site.isSignedIn) {
-            await this.site.loginPage().signInWithDefaultCredentials()
+            await this.site.loginPage.signInWithDefaultCredentials()
         }
     }
 }

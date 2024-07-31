@@ -1,7 +1,7 @@
 import { Button, Label } from "../../internal"
 import { ListCartItems } from "../components/listCartItems"
 import { BaseSauceDemoPage } from "./baseSauceDemoPage"
-import { SauceDemoSite } from "./SauceDemoSite"
+import { SauceDemoSite } from "./sauceDemoSite"
 
 export class CartPage extends BaseSauceDemoPage<CartPage> {
     labelTitle: Label

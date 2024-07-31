@@ -58,28 +58,28 @@ export class ListCartItems extends ListControl<ListCartItems> {
         );
     }
 
-    public usingLabelName(): ListCartItems {
+    usingLabelName(): ListCartItems {
         this.searchLabel = this._labelName
         return this;
     }
 
-    public labelQuantity(): Label {
+    get labelQuantity(): Label {
         return this._labelQuantity.get(this.currentRow)
     }
 
-    public labelName(): Label {
+    get labelName(): Label {
         return this._labelName.get(this.currentRow)
     }
 
-    public labelPrice(): Label {
+    get labelPrice(): Label {
         return this._labelPrice.get(this.currentRow)
     }
 
-    public labelDescription(): Label {
+    get labelDescription(): Label {
         return this._labelDescription.get(this.currentRow)
     }
 
-    public buttonRemove(): Button {
+    get buttonRemove(): Button {
         return this._buttonRemove.get(this.currentRow)
     }
 }

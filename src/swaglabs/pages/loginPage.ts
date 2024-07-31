@@ -1,6 +1,6 @@
 import { Button, Label, TextBox } from "../../internal"
 import { BaseSauceDemoPage } from "./baseSauceDemoPage"
-import { SauceDemoSite } from "./SauceDemoSite"
+import { SauceDemoSite } from "./sauceDemoSite"
 
 export class LoginPage extends BaseSauceDemoPage<LoginPage> {
     textboxUsername: TextBox

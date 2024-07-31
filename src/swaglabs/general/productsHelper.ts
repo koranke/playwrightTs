@@ -3,7 +3,7 @@ import { expect } from '@playwright/test'
 import { CartPage } from '../pages/cartPage'
 import { Label } from '../../internal'
 import { SortingDirection } from '../../core/enums/sortingDirection'
-import { SauceDemoSite } from '../pages/SauceDemoSite'
+import { SauceDemoSite } from '../pages/sauceDemoSite'
 
 export class ProductsHelper {
 
@@ -37,15 +37,15 @@ export class ProductsHelper {
             for (const product of expectedProducts) {
                 await cartPage.listCartItems.usingLabelName().withRowText(product.name)
                 console.log("PRINTING DETAILS...")
-                console.log(await cartPage.listCartItems.labelName().getText())
-                console.log(await cartPage.listCartItems.labelDescription().getText())
-                console.log(await cartPage.listCartItems.labelPrice().getText())
+                console.log(await cartPage.listCartItems.labelName.getText())
+                console.log(await cartPage.listCartItems.labelDescription.getText())
+                console.log(await cartPage.listCartItems.labelPrice.getText())
 
-                await cartPage.listCartItems.labelDescription().assertText(product.description)
+                await cartPage.listCartItems.labelDescription.assertText(product.description)
                 let priceString = this.convertPriceToString(product.price)
-                const lp: Label = cartPage.listCartItems.labelPrice()
+                const lp: Label = cartPage.listCartItems.labelPrice
                 await lp.assertText(priceString)
-                await cartPage.listCartItems.labelQuantity().assertText("1")
+                await cartPage.listCartItems.labelQuantity.assertText("1")
             }
         }
     }
@@ -62,8 +62,8 @@ export class ProductsHelper {
         const products: Product[] = []
     
         for (const productName of productNames) {
-            await (await site.productsPage().listProducts.usingLabelName().withRowText(productName)).buttonAddToCart().click()
-            const product = await site.productsPage().listProducts.getCurrentProduct()
+            await (await site.productsPage.listProducts.usingLabelName.withRowText(productName)).buttonAddToCart.click()
+            const product = await site.productsPage.listProducts.getCurrentProduct()
             products.push(product)
         }
 

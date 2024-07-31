@@ -3,7 +3,7 @@ import { BaseSauceDemoPage } from "./baseSauceDemoPage"
 import { Button } from '../../core/controls/button'
 import { Label } from '../../core/controls/label'
 import { ListProducts } from '../components/listProducts'
-import { SauceDemoSite } from './SauceDemoSite'
+import { SauceDemoSite } from './sauceDemoSite'
 import { Product } from "../domain/product"
 import { SortingDirection } from "../../core/enums/sortingDirection"
 import { ComboBox } from "../../core/controls/comboBox"
@@ -29,7 +29,7 @@ export class ProductsPage extends BaseSauceDemoPage<ProductsPage> {
     async getAllProducts(): Promise<Product[]> {
         const products: Product[] = []
         for (let i: number = 1; i <= await this.listProducts.getRowCount(); i++) {
-            this.site.productsPage().listProducts.withRow(i)
+            this.site.productsPage.listProducts.withRow(i)
             products.push(await this.listProducts.getCurrentProduct())
         }
         return products
