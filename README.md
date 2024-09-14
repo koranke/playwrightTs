@@ -13,3 +13,9 @@ Here's a simple example of what a test might look like in this framework:
         await productsPage.labelCartCount.assertText('2')
     })
 ```
+
+To run the tests, you can use the following command:
+
+```bash
+    npx playwright test
+```
